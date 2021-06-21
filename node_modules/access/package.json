@@ -1,0 +1,33 @@
+{
+  "name": "access",
+  "version": "1.0.2",
+  "description": "Get deeply nested values from unknown shapes with at-runtime type safety.",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "author": "Conor Davidson <conor@conordavidson.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --pretty",
+    "test": "jest --coverage",
+    "test:cover": "jest && codecov"
+  },
+  "jest": {
+    "testRegex": ".*/*.test.ts$",
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "transform": {
+      "\\.ts$": "ts-jest"
+    },
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "codecov": "^3.5.0",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.2"
+  }
+}

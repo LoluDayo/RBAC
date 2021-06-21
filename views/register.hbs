@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <h4>RBAC</h4>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container mt-4">
+       <div class="card" >
+           <div class="card-header">REguster</div>
+        <div class="card-body">
+            <form action="/auth/register" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" >
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" >
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="role">Roles</label>
+                    <select class="form-select" id="role" name="role">
+                        <option selected>Assign Role...</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Editor</option>
+                        <option value="3">Basic</option>
+                    </select>
+                    </div>
+                
+                <button type="submit" class="btn btn-primary">Create User</button>
+            </form>
+            
+        </div>
+        </div>
+        {{#if message }}
+            <h4 class="alert alert-danger mt-4">{{message}}</h4>
+        {{/if}}
+    </div>
+</body>
+</html>
