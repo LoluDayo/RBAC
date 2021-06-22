@@ -1,21 +1,12 @@
 const bcrypt = require("bcryptjs");
 const mysql = require("mysql");
-const AccessControl = require("accesscontrol")
-// var usersRole;
+const session = require("express-session")
+const express = require("express")
+const dotenv = require('dotenv');
+dotenv.config({ path: '../.env'});
 
-// let grantArray = [
-//     { role: 'BASIC', resource: 'index', action: 'read:any', attributes: '*, !id' },
-//     { role: 'ADMIN', resource: ('index','register'), action: 'read:any', attributes: '*' },
-//     { role: 'writer', resource: 'post', action: 'create:own', attributes: '*' },
-//     { role: 'writer', resource: 'post', action: 'update:own', attributes: '*' },
-//     { role: 'writer', resource: 'post', action: 'delete:own', attributes: '*' },
-//     { role: 'EDITOR', resource: 'index', action: 'read:any', attributes: '*' },
-//     { role: 'editor', resource: 'post', action: 'create:any', attributes: '*' },
-//     { role: 'editor', resource: 'post', action: 'update:any', attributes: '*' },
-//     { role: 'editor', resource: 'post', action: 'delete:any', attributes: '*' },
-//   ]
-  
-//   const ac = new AccessControl(grantArray);
+const app = express();
+
 
 const db = mysql.createConnection({
      host: process.env.DATABASE_HOST,
@@ -23,6 +14,19 @@ const db = mysql.createConnection({
      password: process.env.DATABASE_PASSWORD,
      database: process.env.DATABASE
  });
+
+
+ app.use(session({
+    name: process.env.SESS_NAME,
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.SESS_SECRET,
+    cookie: {
+        maxAge: process.env.SESS_LIFETIME,
+        sameSite: true,
+        secure: process.env.IN_PROD
+    }
+}))
 
 exports.register = (req, res) => {
     console.log(req.body);
@@ -56,7 +60,7 @@ exports.register = (req, res) => {
 exports.login = async (req, res) => {
     try {
         const {username, password } = req.body;
-        const { ac } = req.grantArray;
+
         
         if( !username || !password ) {
             return res.status(400).render('login', {
@@ -65,18 +69,7 @@ exports.login = async (req, res) => {
         }
 
         db.query('SELECT * FROM users WHERE username =?', [username], async (error, results) => {
-            if( ac.role == results[0].role) {
-                console.log(ac.action)
-            }
-            //usersRole = results[0].role
-            // console.log(usersRole);
-            //     function userRole(req, res) {
-            //     if(usersRole == null) {
-            //         return res.render('login', {
-            //             message: 'You Need to Login' 
-            //         })
-            //     }
-            //}
+            
 
             console.log(results);
             if( !results || !(password == results[0].password)) {
@@ -84,6 +77,7 @@ exports.login = async (req, res) => {
                     message: 'Username or Password is incorrect'
                 })
             } else {
+                req.session.userRole = results[0].role
                 return res.render('dashboard', {
                     message: 'welcome to dashbord'
                 })
@@ -96,14 +90,19 @@ exports.login = async (req, res) => {
 
 }
 
-// exports.userRole = async (req, res) => {
-//     console.log(usersRole);
-//     if(usersRole == null) {
-//         return res.render('login', {
-//             message: 'You Need to Login' 
-//         })
-//     }
-// }
+exports.users = async (req, res) => {
+    db.query('SELECT * FROM users ', async (error, results) => {
+        if(error) {
+            console.log(error);
+        
+        } else {
+            return res.render('users', {
+                results
+            })
+        }
+        console.log(results) 
+    })
+}
 
-// exports.login(exports.userRole);
+
  

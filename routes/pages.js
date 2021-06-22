@@ -15,8 +15,12 @@ router.get('/register', (req, res) => {
     res.render('register')
 });
 
-router.get('/dashboard',/*authController.userRole,*/ (req, res) => {
-    res.render('/dashboard')
+router.get('/users', authController.users, (req, res) => {
+    res.render('users')
+});
+
+router.get('/dasboard', (req, res) => {
+    res.render('dashboard')
 });
 
 module.exports = router;

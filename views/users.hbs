@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>RBAC</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Role</th>
+                <th scope="col" class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each results}}
+                <tr>
+                <th scope="row">{{this.id}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.username}}</td>
+                <td>{{this.role}}</td>
+                <td class="text-end">
+                    <a href="#" type="button" class="btn btn-light btn-small" ><i class="bi bi-eye"></i>View</a>
+                    <a href="#" type="button" class="btn btn-light btn-small" ><i class="bi bi-pencil"></i>Edit</a>
+                    <a href="#" type="button" class="btn btn-light btn-small" ><i class="bi bi-trash"></i>Delete</a>
+                </td>
+                </tr>
+                {{/each}}
+                
+                
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
-    <title>Document</title>
+    <title>RBAC</title>
 </head>
 <body>
-    <div class="alert alert-success" role="alert">
+    <div  class="alert alert-success" role="alert">
     A simple success alert—check it out!
+    <button type="submit" class="btn btn-primary">View users</button>
+    <li><a href="/users">View users</a></li>
     </div>
     {{#if message }}
         <h4 class="alert alert-danger mt-4">{{message}}</h4>
