@@ -20,6 +20,7 @@ router.get('/users', authController.users, (req, res) => {
 });
 
 router.get('/dasboard', (req, res) => {
+    
     res.render('dashboard')
 });
 

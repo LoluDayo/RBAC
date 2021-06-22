@@ -16,17 +16,17 @@ const db = mysql.createConnection({
     database: process.env.DATABASE
 });
 
-app.use(session({
-    name: process.env.SESS_NAME,
-    resave: false,
-    saveUninitialized: false,
-    secret: process.env.SESS_SECRET,
-    cookie: {
-        maxAge: process.env.SESS_LIFETIME,
-        sameSite: true,
-        secure: process.env.IN_PROD
-    }
-}))
+// app.use(session({
+//     name: process.env.SESS_NAME,
+//     resave: false,
+//     saveUninitialized: false,
+//     secret: process.env.SESS_SECRET,
+//     cookie: {
+//         maxAge: process.env.SESS_LIFETIME,
+//         sameSite: true,
+//         secure: process.env.IN_PROD
+//     }
+// }))
 
 const publicdirectory = path.join(__dirname, './public');
 app.use(express.static(publicdirectory));

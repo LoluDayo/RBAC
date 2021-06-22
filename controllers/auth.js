@@ -2,8 +2,8 @@ const bcrypt = require("bcryptjs");
 const mysql = require("mysql");
 const session = require("express-session")
 const express = require("express")
-const dotenv = require('dotenv');
-dotenv.config({ path: '../.env'});
+//const dotenv = require('dotenv');
+//dotenv.config({ path: '../.env'});
 
 const app = express();
 
@@ -13,10 +13,11 @@ const db = mysql.createConnection({
      user: process.env.DATABASE_USER,
      password: process.env.DATABASE_PASSWORD,
      database: process.env.DATABASE
- });
+});
 
 
- app.use(session({
+
+app.use(session({
     name: process.env.SESS_NAME,
     resave: false,
     saveUninitialized: false,
@@ -60,7 +61,7 @@ exports.register = (req, res) => {
 exports.login = async (req, res) => {
     try {
         const {username, password } = req.body;
-
+        const userRole = req.session;
         
         if( !username || !password ) {
             return res.status(400).render('login', {
@@ -77,11 +78,23 @@ exports.login = async (req, res) => {
                     message: 'Username or Password is incorrect'
                 })
             } else {
-                req.session.userRole = results[0].role
+                db.query('INSERT INTO users SET ?', { role: userRole}, (error, results) =>{
+                    if(error) {
+                        console.log(error);
+                    } else {
+                        console.log(results)
+                        return res.render('register',{
+                            message: 'User Created'
+                        })
+                    }
+                })
+                req.session.userRole = results[0].userRole
                 return res.render('dashboard', {
                     message: 'welcome to dashbord'
                 })
+                
             }
+            console.log(req.session.userRole);
             
         })
     } catch (error) {

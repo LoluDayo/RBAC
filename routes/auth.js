@@ -5,7 +5,10 @@ const router = express.Router();
 
 
 
-router.post('/login',  authController.login);  
+router.post('/login',  authController.login, (req, res) => {
+    //req.session.userRole == results[0].role
+
+});  
 
 router.post('/register', authController.register);
 
