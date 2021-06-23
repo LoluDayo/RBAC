@@ -78,17 +78,8 @@ exports.login = async (req, res) => {
                     message: 'Username or Password is incorrect'
                 })
             } else {
-                db.query('INSERT INTO users SET ?', { role: userRole}, (error, results) =>{
-                    if(error) {
-                        console.log(error);
-                    } else {
-                        console.log(results)
-                        return res.render('register',{
-                            message: 'User Created'
-                        })
-                    }
-                })
-                req.session.userRole = results[0].userRole
+                
+                //req.session.userRole = results[0].userRole
                 return res.render('dashboard', {
                     message: 'welcome to dashbord'
                 })
