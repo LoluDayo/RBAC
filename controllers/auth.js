@@ -1,11 +1,8 @@
-const bcrypt = require("bcryptjs");
-const mysql = require("mysql");
-const session = require("express-session")
-const express = require("express")
-//const dotenv = require('dotenv');
-//dotenv.config({ path: '../.env'});
 
-const app = express();
+const mysql = require("mysql");
+
+
+
 
 
 const db = mysql.createConnection({
@@ -17,39 +14,30 @@ const db = mysql.createConnection({
 
 
 
-app.use(session({
-    name: process.env.SESS_NAME,
-    resave: false,
-    saveUninitialized: false,
-    secret: process.env.SESS_SECRET,
-    cookie: {
-        maxAge: process.env.SESS_LIFETIME,
-        sameSite: true,
-        secure: process.env.IN_PROD
-    }
-}))
 
 exports.register = (req, res) => {
     console.log(req.body);
-
+    
     const { name, username, password, role} = req.body;
 
     db.query('SELECt username FROM users WHERE username = ?', [username],(error, results) => {
+        
         if(error) {
             console.log(error);
         }
 
         if( results.length > 0) {
-            return res.render('register',{
+            return res.render('addUser',{
                 message: 'Username ia already in use'
             });
         }
+        
         db.query('INSERT INTO users SET ?', {name: name, username: username, password: password, role: role}, (error, results) =>{
             if(error) {
                 console.log(error);
             } else {
                 console.log(results)
-                return res.render('register',{
+                return res.render('addUser',{
                     message: 'User Created'
                 })
             }
@@ -58,10 +46,13 @@ exports.register = (req, res) => {
     
     
 }
+
 exports.login = async (req, res) => {
+    
+    
     try {
         const {username, password } = req.body;
-        const userRole = req.session;
+        
         
         if( !username || !password ) {
             return res.status(400).render('login', {
@@ -72,30 +63,32 @@ exports.login = async (req, res) => {
         db.query('SELECT * FROM users WHERE username =?', [username], async (error, results) => {
             
 
-            console.log(results);
+            //console.log(results);
             if( !results || !(password == results[0].password)) {
                 res.status(401).render('login', {
                     message: 'Username or Password is incorrect'
                 })
             } else {
                 
-                //req.session.userRole = results[0].userRole
+                //req.session.isAuth == 1
                 return res.render('dashboard', {
                     message: 'welcome to dashbord'
                 })
                 
             }
-            console.log(req.session.userRole);
+            //console.log(req.session.userRole);
             
         })
+        
     } catch (error) {
         console.log(error)
     } 
 
 }
 
-exports.users = async (req, res) => {
-    db.query('SELECT * FROM users ', async (error, results) => {
+
+exports.users =  (req, res) => {
+    db.query('SELECT * FROM users ', (error, results) => {
         if(error) {
             console.log(error);
         
@@ -104,9 +97,38 @@ exports.users = async (req, res) => {
                 results
             })
         }
-        console.log(results) 
+         
     })
 }
 
+exports.redirectLogin = (req, res, next) => {
+    if (!req.session.isAuth) {
+        res.redirect('/login') 
 
+    } else {
+        next()
+    }
+}
  
+exports.redirectHome = (req, res, next) => {
+    
+    if (req.session.isAuth) {
+        res.redirect('/') 
+
+    } else {
+        next()
+    }
+}
+
+ exports.authRole = function (role) {
+    return (req, res, next) => {
+        if (req.session.isRole !== role) {
+            res.status(401)
+            return res.render('/dashboard',{
+                message: 'forbidden'
+            })
+        }
+        next()
+    }
+
+}

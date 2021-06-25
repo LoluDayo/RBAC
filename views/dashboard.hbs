@@ -8,13 +8,45 @@
     <title>RBAC</title>
 </head>
 <body>
-    <div  class="alert alert-success" role="alert">
-    A simple success alert—check it out!
-    <button type="submit" class="btn btn-primary">View users</button>
-    <li><a href="/users">View users</a></li>
+    <nav>
+        <h4>RBAC</h4>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container mt-4">
+        {{#if message }}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
+        {{/if}}
+       <div class="jumbotron">
+        {{#each results}}
+        <h1 class="display-4">Welcome {{this.name}}</h1>
+        <p class="lead">this is a simple jumbotron style</p> 
+        <hr class="my-4">
+        <p>here are your {{this.role}} tools</p>
+        {{#ifCond this.role  'Admin' }}
+            <ul>
+                <li><a class="btn btn-primary " href="/addUser" role="button">Add User</a></li>
+                
+                <li><a class="btn btn-primary " href="/users" role="button">View Users</a></li>
+                <li><a class="btn btn-primary " href="/addArticle" role="button">Add Article</Article></a></li>
+            </ul>
+        {{/ifCond}}
+        {{#ifCond this.role  'Editor'}}
+            <ul>
+                <li><a class="btn btn-primary " href="/addArticle" role="button">Add Article</Article></a></li>
+            </ul>
+        {{/ifCond}}
+        {{/each}}
+       </div>
     </div>
-    {{#if message }}
-        <h4 class="alert alert-danger mt-4">{{message}}</h4>
-    {{/if}}
-</body>
+    
+    <script src="/style.js"></script>
+    </body>
 </html>

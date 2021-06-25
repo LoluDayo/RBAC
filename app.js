@@ -1,8 +1,9 @@
 const express = require("express")
-const session = require("express-session")
+const handlebar = require("express-session")
 const path = require('path')
 const mysql = require("mysql")
 const dotenv = require('dotenv');
+const handlebars = require('hbs')
 
 
 dotenv.config({ path: './.env'});
@@ -49,7 +50,14 @@ db.connect( (err) => {
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
 
-
+handlebars.registerHelper('ifCond', function(v1, v2, options) {
+    
+    if (v1 === v2) {
+        return options.fn(this);
+    }
+    return options.inverse(this);
+ 
+})
 
 app.listen(5000, () => {
     console.log("server started on port 5000"); 
