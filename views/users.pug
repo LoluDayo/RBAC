@@ -1,0 +1,42 @@
+extends layout 
+
+block content
+    nav(class="navbar")
+        div(class="container fluid")
+                h4 RBAC
+                ul
+                    li 
+                        a(href="/") Home
+                    li 
+                        a(href="/dashboard") Dashboard
+                    li 
+                        a(href="/auth/logout") Logout 
+        
+    div(class="container mt-4")
+        if message 
+            div(class="alert alert-warning alert-dismissible fade show" role="alert")
+                strong  #{message}
+                button(type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close")
+        
+        table(class="table")
+            thead(class="table-dark")
+                tr 
+                th(scope="col") #
+                th(scope="col") Name
+                th(scope="col") Username
+                th(scope="col") Role
+                th(scope="col" class="text-end")
+            tbody 
+            each result, i in results
+                tr
+                th(scope="row") #{result.id}
+                td #{result.name}
+                td #{result.username}
+                td #{result.role}
+                td( class="text-end")
+                    a(href="#" type="button" class="btn btn-light btn-small") View
+                        i(class="bi bi-eye") 
+                    a(href="#" type="button" class="btn btn-light btn-small") Edit
+                        i(class="bi bi-pencil")
+                    a(href="#" type="button" class="btn btn-light btn-small") Delete
+                        i(class="bi bi-trash")  

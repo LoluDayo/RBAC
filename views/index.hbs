@@ -4,29 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style1.css">
     <title>RBAC</title>
 </head>
 <body>
-    <nav>
-        <h4>RBAC</h4>
-        <ul>
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/auth/logout">Logout</a></li>
-        </ul>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <h4>RBAC</h4>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+            </ul>
+        </div>
     </nav>
     
-    
-
     <div class="container mt-4">
        <div class="jumbotron">
         <h1 class="display-4">Login</h1>
         <p class="lead">this is a simple jumbotron style</p> 
         <hr class="my-4">
         <p>it uses utility classses for typography</p>
-        <a class="btn btn-primary btn-lg" href="/login" role="button">login</a>
+        
        </div>
     </div>
+    {{#each results}}
+    <div class="container mt-4">
+       <div class="jumbotron">
+        <h1 class="display-4">{{this.title}}</h1>
+        <p class="lead">{{this.about}}</p> 
+        <hr class="my-4">
+        <p>Author: {{this.authorName}}</p>
+        <a class="btn btn-primary " href="/" role="button">Read</a>
+       </div>
+    </div>
+    {{/each}}
     <script src="/style.js"></script>
 </body>
 </html>

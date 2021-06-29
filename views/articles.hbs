@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>RBAC</title>
+</head>
+<body>
+     <nav class="navbar">
+        <div class="container-fluid">
+            <h4>RBAC</h4>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+            </ul>
+         </div>
+    </nav>
+
+    <div class="container mt-4">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Author</th>
+                <th scope="col" class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {{#each rows}}
+                <tr>
+                <th scope="row">{{this.article_Id}}</th>
+                <td>{{this.title}}</td>
+                <td>{{this.about}}</td>
+                <td>{{this.authorName }}</td>
+                <td class="text-end">
+                    <a href="#" type="button" class="btn btn-light btn-small" ><i class="bi bi-eye"></i>View</a>
+                    
+               
+                        <a href="#" type="button" class="btn btn-light btn-small" ><i class="bi bi-pencil"></i>Edit</a>
+                
+                    
+                
+                    <a href="#" type="button" class="btn btn-light btn-small" ><i class="bi bi-trash"></i>Delete</a>
+                </td>
+                </tr> 
+                {{/each}}
+                
+   
+                
+            </tbody>
+        </table>
+    </div>
+    <script src="/style.js"></script>
+</body>
+</html>

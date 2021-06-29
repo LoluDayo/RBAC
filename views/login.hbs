@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style1.css">
     <title>RBAC</title>
 </head>
 <body>
-    <nav>
-        <h4>RBAC</h4>
-        {{!-- <ul>
-            <li><a href="/">Home</a></li>
-    
-        </ul> --}}
+    <nav class="navbar">
+        <div class="container fluid">
+            <h4>RBAC</h4>
+            {{!-- <ul>
+                <li><a href="/">Home</a></li>
+        
+            </ul> --}}
+        </div>    
     </nav>
 
     <div class="container mt-4">
@@ -29,11 +31,11 @@
            <div class="card-header">Login</div>
         <div class="card-body">
             <form action="/auth/login" method="POST">
-                <div class="mb-3">
+                <div class="form-group">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username" >
                 </div>
-                <div class="mb-3">
+                <div class="form-group">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password">
                 </div>

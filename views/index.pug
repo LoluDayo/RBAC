@@ -1,0 +1,33 @@
+extends layout 
+
+block content
+    nav(class="navbar")
+        div(class="container fluid")
+            h4 RBAC
+            ul
+                li 
+                    a(href="/dashboard") Dashboard
+                li 
+                    a(href="/auth/logout") Logout 
+    
+    div(class="container mt-4")
+        if message 
+            div(class="alert alert-warning alert-dismissible fade show" role="alert")
+                strong  #{message}
+                button(type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close")
+        
+        div(class="jumbotron")
+            h1(class="display-4") Login 
+            p(class="lead") this is a simple jumbotron style
+            hr(class="my-4")
+            p it uses utility classses for typography
+
+    each result, i in results
+        div(class="container mt-4")
+            div(class="jumbotron")
+                h1(class="display-4") #{result.title}
+                p(class="lead")  #{result.about}
+                hr(class="my-4")
+                p Author: #{result.authorName}
+                p(class="lead")
+                    a(class="btn btn-primary" href="/" role="button") Read

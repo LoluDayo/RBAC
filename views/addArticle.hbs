@@ -4,9 +4,52 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
     <title>RBAC</title>
 </head>
 <body>
     <h4>Welcome to add article</h4>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <h4>RBAC</h4>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {{#if message }}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
+        {{/if}}
+       <div class="card" >
+           <div class="card-header">Add Article></div>
+        <div class="card-body">
+            <form action="/auth/addArticle" method="POST">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="about" class="form-label">description</label>
+                    <input type="text" class="form-control" id="about" name="about" required>
+                </div>
+                <div class="mb-3">
+                    <label for="body" class="form-label">body</label>
+                    <textarea  class="form-control" id="body" name="body" required></textarea>
+                </div>
+                <ul>
+                    <li><button type="submit" class="btn btn-primary">Post</button></li>
+                    <li><a class="btn btn-primary " href="/dashboard" role="button">Dashboard</a></li>
+                </ul>
+            </form>           
+        </div>
+    </div>
+    <script src="/style.js"></script>
 </body>
 </html>

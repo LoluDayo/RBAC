@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const handlebars = require('hbs')
 
 
-dotenv.config({ path: './.env'});
+dotenv.config({ path: './.env' });
 
 const app = express();
 
@@ -37,10 +37,10 @@ app.use(express.urlencoded({ extended: false }));
 // Parse JSON bodies (as sentby API clients)
 app.use(express.json());
 
-app.set('view engine', 'hbs');
- 
-db.connect( (err) => {
-    if(err) {
+app.set('view engine', 'pug');
+
+db.connect((err) => {
+    if (err) {
         console.log(err)
     } else {
         console.log("MYSQL Connected...")
@@ -51,14 +51,14 @@ app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
 
 handlebars.registerHelper('ifCond', function(v1, v2, options) {
-    
-    if (v1 === v2) {
+
+    if (v1 == v2) {
         return options.fn(this);
     }
     return options.inverse(this);
- 
+
 })
 
 app.listen(5000, () => {
-    console.log("server started on port 5000"); 
+    console.log("server started on port 5000");
 })

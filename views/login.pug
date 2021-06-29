@@ -1,0 +1,24 @@
+extends layout 
+
+block content
+    nav(class="navbar")
+        div(class="container fluid")
+            h4 RBAC
+
+    div(class="container mt-4")
+        if message 
+            div(class="alert alert-warning alert-dismissible fade show" role="alert")
+                strong  #{message}
+                button(type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close")
+        
+        div(class="card")
+            div(class="card-header") Login
+            div(class="card-body")
+                form(action="/auth/login", method="POST")
+                    div(class="mb-3")
+                        label( for="username" class="form-label") Username
+                        input(type="text" class="form-control" id="username" name="username") 
+                    div(class="mb-3")
+                        label( for="password" class="form-label") Password
+                        input(type="password" class="form-control" id="password" name="password")
+                    button(type="submit" class="btn btn-primary") Login  

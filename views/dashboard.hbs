@@ -8,12 +8,14 @@
     <title>RBAC</title>
 </head>
 <body>
-    <nav>
-        <h4>RBAC</h4>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/auth/logout">Logout</a></li>
-        </ul>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <h4>RBAC</h4>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+            </ul>
+        </div>
     </nav>
 
     <div class="container mt-4">
@@ -31,19 +33,21 @@
         <hr class="my-4">
         <p>here are your {{this.role}} tools</p>
         {{#ifCond this.role  'Admin' }}
-            <ul>
-                <li><a class="btn btn-primary " href="/addUser" role="button">Add User</a></li>
-                
-                <li><a class="btn btn-primary " href="/users" role="button">View Users</a></li>
-                <li><a class="btn btn-primary " href="/addArticle" role="button">Add Article</Article></a></li>
-            </ul>
+        <ul>
+            <li><a class="btn btn-primary " href="/addUser" role="button">Add User</a></li>
+            <li><a class="btn btn-primary " href="/users" role="button">View Users</a></li>
+            <li><a class="btn btn-primary " href="/addArticle" role="button">Add Article</Article></a></li>
+            <li><a class="btn btn-primary " href="/articles" role="button">View Articles</a></li>
+        </ul>
         {{/ifCond}}
         {{#ifCond this.role  'Editor'}}
             <ul>
                 <li><a class="btn btn-primary " href="/addArticle" role="button">Add Article</Article></a></li>
+                <li><a class="btn btn-primary " href="/articles" role="button">View Articles</a></li>
             </ul>
         {{/ifCond}}
         {{/each}}
+        
        </div>
     </div>
     

@@ -1,0 +1,44 @@
+extends layout 
+
+block content
+    nav(class="navbar")
+        div(class="container fluid")
+            h4 RBAC
+            ul
+                li 
+                    a(href="/") Home
+                li 
+                    a(href="/auth/logout") Logout 
+    
+    div(class="container mt-4")
+        if message 
+            div(class="alert alert-warning alert-dismissible fade show" role="alert")
+                strong  #{message}
+                button(type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close")
+    
+  
+        
+        div(class="jumbotron")
+            each result, i in results
+                yh1(class="display-4") Welcome #{result.name}
+                p(class="lead") this a simple jumbotron style
+                hr(class="my-4")
+                p here are your #{result.role} tools
+                p(class="lead")
+                if result.role == 'Admin'
+                    ul
+                        li
+                            a(class="btn btn-primary" href="/addUser" role="button") Add User
+                        li
+                            a(class="btn btn-primary" href="/users" role="button") View Users
+                        li
+                            a(class="btn btn-primary" href="/addArticle" role="button") Add Article
+                        li
+                            a(class="btn btn-primary" href="/articles" role="button") View Articles
+                if result.role == 'Editor'
+                    ul
+                        li
+                            a(class="btn btn-primary" href="/addArticle" role="button") Add Article
+                        li
+                            a(class="btn btn-primary" href="/articles" role="button") View Articles
+                        li

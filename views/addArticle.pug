@@ -1,0 +1,39 @@
+extends layout 
+
+block content
+    nav(class="navbar")
+        div(class="container fluid")
+            h4 RBAC
+            ul
+                li 
+                    a(href="/") Home
+                li 
+                    a(href="/dashboard") Dashboard
+                li 
+                    a(href="/articles") View Articles
+                li 
+                    a(href="/auth/logout") Logout
+    
+    div(class="container mt-4")
+        if message 
+            div(class="alert alert-warning alert-dismissible fade show" role="alert")
+                strong  #{message}
+                button(type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close")
+    
+        div(class="card")
+            div(class="card-header") Add Artilce
+            div(class="card-body")
+                form(class="row g-3" action="/auth/login", method="POST")
+                    div(class="col-6")                        
+                        label( for="title" class="form-label") Title
+                        input(type="text" class="form-control" id="title" name="title" required)
+                    div(class="col-6")                        
+                        label( for="about" class="form-label") Description
+                        input(type="text" class="form-control" id="about" name="about" required) 
+                    div(class="col-12")
+                        label( for="body" class="form-label") Body
+                        textarea( class="form-control" id="body" name="body" required)
+                    div(class="container fluid")
+                        button(type="submit" class="btn btn-primary") Post
+                        
+                          
