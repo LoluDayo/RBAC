@@ -1,5 +1,5 @@
 const express = require("express")
-const handlebar = require("express-session")
+
 const path = require('path')
 const mysql = require("mysql")
 const dotenv = require('dotenv');
