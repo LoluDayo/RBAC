@@ -53,7 +53,7 @@ router.get('/articles', authC.redirectLogin, authC.articles, authC.authRole('Adm
 
 router.get('/dashboard', authC.redirectLogin, (req, res, ) => {
 
-    db.query('SELECT * FROM users WHERE id =? ', [req.session.isAuth], (error, results) => {
+    db.query('SELECT * FROM users WHERE usrId =? ', [req.session.isAuth], (error, results) => {
         if (error) {
             console.log(error);
 

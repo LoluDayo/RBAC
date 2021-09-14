@@ -29,7 +29,7 @@ router.use(session({
 
 
 
-router.post('/login', (req, res) => {
+router.post('/login', authC.posts, (req, res) => {
    
     console.log(req.session)
     try {
@@ -87,7 +87,7 @@ router.post('/addArticle', (req, res) => {
             });
         }
 
-        db.query('INSERT INTO articles SET ?', { authorName: req.session.isName, authorId: req.session.isAuth, about: about, title: title, body: body, articleId }, (error, results) => {
+        db.query('INSERT INTO articles SET ?', { authorName: req.session.isName, authorId: req.session.isAuth, about: about, title: title, body: body, articleId: postId }, (error, results) => {
             if (error) {
                 console.log(error);
             } else {
@@ -148,7 +148,7 @@ router.get('/logout', (req, res) => {
 })
 
 function randomString(n) {
-    charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    charSet = 'A0aB1bC2cD3dE4eF9fG8gH7hI6iJ5jKzLyMxNwOvPuQtRsSrTqUpVoWnXmYlZk';
     var Str = '';
     for (var i = 0; i < n; i++) {
         var index = Math.floor(Math.random() * charSet.length);
