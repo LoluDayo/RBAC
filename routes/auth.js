@@ -29,7 +29,7 @@ router.use(session({
 
 
 
-router.post('/login', authC.posts, (req, res) => {
+router.post('/login', (req, res) => {
    
     console.log(req.session)
     try {

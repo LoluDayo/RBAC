@@ -51,7 +51,7 @@ router.get('/articles', authC.redirectLogin, authC.articles, authC.authRole('Adm
 });
 
 
-router.get('/dashboard', authC.redirectLogin, (req, res, ) => {
+router.get('/dashboard',  (req, res, ) => {
 
     db.query('SELECT * FROM users WHERE usrId =? ', [req.session.isAuth], (error, results) => {
         if (error) {
